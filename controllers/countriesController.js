@@ -1,13 +1,18 @@
 const Country = require('../models/country');
 
-const getAllCountries = async (req, res, next) => {
+const renderAllCountries = async (req, res, next) => {
   try {
+    const success = req.query.success === 'true';
     const sort = req.query.sort === 'true' ? { name: 1 } : {};
     const countries = await Country.find().sort(sort);
-    res.status(200).json(countries);
+    res.render('index', { countries, success });
   } catch (error) {
     next(error);
   }
+};
+
+const renderAddCountryForm = async (req, res, next) => {
+  res.render('addCountry')
 };
 
 const getCountryByCode = async (req, res, next) => {
@@ -19,7 +24,7 @@ const addCountry = async (req, res, next) => {
         const { name, alpha2Code, alpha3Code } = req.body;
         const country = new Country({ name, alpha2Code, alpha3Code });
         await country.save();
-        res.status(201).json(country);
+        res.redirect('/?success=true');
     } catch (error) {
         next(error);
     }
@@ -44,13 +49,13 @@ const updateCountry = async (req, res, next) => {
 const deleteCountry = async (req, res, next) => {
     try {
       const country = req.country;
-      
-      await country.deleteOne();
+      country.visited = !country.visited;
+      await country.save();
   
-      res.status(200).json({ message: 'Country deleted successfully' });
+      res.status(200).json({ message: `${country.name} is visited: ${country.visited}` });
     } catch (error) {
       next(error);
     }
   };
 
-module.exports = { getAllCountries, getCountryByCode, addCountry, updateCountry, deleteCountry};
+module.exports = { renderAllCountries, renderAddCountryForm, getCountryByCode, addCountry, updateCountry, deleteCountry };

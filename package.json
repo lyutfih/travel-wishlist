@@ -5,16 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "build:css": "npx tailwindcss -i ./src/css/tailwind.css -o ./public/tailwind.css --watch",
+    "dev": "concurrently \"npm:build:css\" \"nodemon app.js\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
     "mongoose": "^8.4.5",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "tailwindcss": "^3.4.4"
   }
 }
