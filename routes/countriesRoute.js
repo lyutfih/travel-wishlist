@@ -1,18 +1,20 @@
 const express = require('express');
 const { countryDetailsValidator } = require('../validators/countriesValidator');
-const { getAllCountries, getCountryByCode, addCountry, updateCountry, deleteCountry } = require('../controllers/countriesController');
+const { renderAllCountries, renderAddCountryForm, getCountryByCode, addCountry, updateCountry, deleteCountry } = require('../controllers/countriesController');
 const { checkCountry,checkCountryExists } = require('../middlewares/checkCountry');
 
 const countriesRouter = express.Router();
 
-countriesRouter.get('/', getAllCountries);
+countriesRouter.get('/', renderAllCountries);
 
-countriesRouter.get('/:code', checkCountry, getCountryByCode);
+countriesRouter.get('/add/new', renderAddCountryForm);
 
-countriesRouter.post('/', countryDetailsValidator, checkCountryExists, addCountry );
+countriesRouter.get('/api/countries/:code', checkCountry, getCountryByCode);
 
-countriesRouter.put('/', checkCountry, countryDetailsValidator, updateCountry);
+countriesRouter.post('/api/countries/', countryDetailsValidator, checkCountryExists, addCountry );
 
-countriesRouter.delete('/:code', checkCountry, deleteCountry);
+countriesRouter.put('/api/countries/', checkCountry, countryDetailsValidator, updateCountry);
+
+countriesRouter.delete('/api/countries/:code', checkCountry, deleteCountry);
 
 module.exports = countriesRouter;

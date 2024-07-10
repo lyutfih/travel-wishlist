@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/tailwind.css" rel="stylesheet">
+  <title>Travel Wishlist</title>
+</head>
+<body class="p-8 bg-slate-800 text-white max-h-screen overflow-hidden">
+  <div class="flex justify-center items-center min-h-screen">
+   <div class="max-w-screen-sm w-full">
+    <% if (success) { %>
+      <%- include('partials/alert'); %>
+    <% } %>
+      <article class="rounded-xl border border-gray-700 bg-gray-800 p-4 min-w-full max-h-[95vh]">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-medium text-white">Travel Wishlist</h3>
+            <p class="text-sm text-gray-300">List of countries</p>
+          </div>
+          <a href="/add/new" class="bg-red-500 text-white rounded-md px-3 py-1 text-sm hover:transition-all hover:bg-red-700">+ Add New Country</a>
+        </div>
+      
+        <ul class="mt-4 space-y-2 max-h-[70vh] overflow-y-auto no-scrollbar">
+          <% countries.forEach(country => { %>
+          <li>
+            <span class="flex items-center gap-4 h-full rounded-lg border border-gray-700 p-3 hover:border-red-600">
+              <img alt="" src="https://flagcdn.com/w550/<%= country.alpha2Code.toLowerCase() %>.png" class="size-16 rounded-lg object-cover">
+                <div>
+                  <strong class="font-medium text-white"><%= country.name %></strong>
+                  <p class="mt-1 text-xs font-medium text-gray-300">
+                    Alpha2Code: <%= country.alpha2Code %> / Alpha3Code: <%= country.alpha3Code %>
+                  </p>
+                  <p class="mt-1 text-xs font-medium text-gray-300">
+                    Visited: <%- country.visited ? '<span class="inline-block size-2 rounded-full bg-green-600"></span> Yes' 
+                    : '<span class="inline-block size-2 rounded-full bg-red-600"></span> Not Yet' %>
+                  </p>
+              </div>
+            </span>
+          </li>
+          <% }); %>
+
+        </ul>
+       </article>
+    </div>
+</div>
+</body>
+</html>

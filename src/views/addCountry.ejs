@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/tailwind.css" rel="stylesheet">
+  <title>Add New Country</title>
+</head>
+<body class="p-8 bg-slate-800 text-white max-h-screen overflow-hidden">
+    <div class="flex justify-center items-center min-h-screen">
+      <div class="max-w-screen-sm w-full">
+        <article class="rounded-xl border border-gray-700 bg-gray-800 p-4 min-w-full max-h-[95vh]">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-medium text-white">Travel Wishlist</h3>
+              <p class="text-sm text-gray-300">Add new country</p>
+            </div>
+            <a href="/" class="bg-red-500 text-white rounded-md px-3 py-1 text-sm hover:transition-all hover:bg-red-700">< Go Back</a>
+          </div>
+
+          <div class="mt-4 space-y-2 max-h-[70vh] overflow-y-auto no-scrollbar">
+            <form action="/api/countries" method="POST">
+               <div class="mb-4">
+                    <label for="name" class="block text-sm font-bold mb-2 text-gray-300">Name</label>
+                    <input type="text" id="name" name="name" class="border rounded w-full py-1 px-2 bg-gray-700 text-white" required>
+                </div>
+                <div class="flex items-center justify-center gap-10">
+                    <div class="mb-4">
+                        <label for="alpha2Code" class="block text-sm font-bold mb-2 text-gray-300">Alpha2 Code</label>
+                        <input type="text" id="alpha2Code" name="alpha2Code" class="border rounded w-full py-1 px-2 bg-gray-700 text-white" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="alpha3Code" class="block text-sm font-bold mb-2 text-gray-300">Alpha3 Code</label>
+                        <input type="text" id="alpha3Code" name="alpha3Code" class="border rounded w-full py-1 px-2 bg-gray-700 text-white" required>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="border-red-500 border text-sm text-white px-4 py-1.5 rounded hover:bg-red-500 hover:transition-all">Add Country</button>
+                </div>
+              </form>
+          </div>
+</body>
+</html>
