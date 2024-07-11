@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "npx tailwindcss -i ./src/css/tailwind.css -o ./public/tailwind.css --watch",
-    "dev": "concurrently \"npm:build:css\" \"nodemon app.js\""
+    "dev": "concurrently \"npm:build:css\" \"nodemon app.js\"",
+    "build": "cross-env NODE_ENV=production npx tailwindcss -i ./src/css/tailwind.css -o ./public/tailwind.css --minify"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,8 @@
     "mongoose": "^8.4.5",
     "nodemon": "^3.1.4",
     "tailwindcss": "^3.4.4"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
