@@ -1,4 +1,4 @@
-const Country = require('../models/country');
+const Country = require('../models/Country');
 
 const renderAllCountries = async (req, res, next) => {
   try {
