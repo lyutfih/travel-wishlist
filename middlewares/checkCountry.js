@@ -1,4 +1,4 @@
-const Country = require('../models/country');
+const Country = require('../models/Country');
 
 const checkCountry = async (req, res, next) => {
     const code = req.body.alpha2Code || req.body.alpha3Code || req.params.code;
