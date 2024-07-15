@@ -1,4 +1,25 @@
+require('dotenv').config();
+const axios = require('axios');
 const Country = require('../models/Country');
+
+const findCountry = async (req, res, next) => {
+  try {
+    const countryName = req.body.name;
+    const country = await axios.get(`${process.env.API_URL}name/${countryName}`);
+
+    const name = country.data[0].name.common;
+    const { cca2,cca3 } = country.data[0];
+
+    req.country = { name, alpha2Code: cca2, alpha3Code: cca3 };
+    next();
+  } catch (error) {
+    if (error.response) {
+      if (error.response.status === 404) {
+        return res.status(404).json({ error: 'Country not found' });
+      }
+  }
+}
+};
 
 const checkCountry = async (req, res, next) => {
     const code = req.body.alpha2Code || req.body.alpha3Code || req.params.code;
@@ -19,7 +40,7 @@ const checkCountry = async (req, res, next) => {
   };
 
 const checkCountryExists = async (req, res, next) => {
-    const { alpha2Code, alpha3Code } = req.body;
+    const { alpha2Code, alpha3Code } = req.country;
     try {
       const country = await Country.find({$or: [{alpha2Code}, {alpha3Code} ]});
         
@@ -33,4 +54,4 @@ const checkCountryExists = async (req, res, next) => {
     }
   };
 
-module.exports = { checkCountry, checkCountryExists };
+module.exports = { findCountry, checkCountry, checkCountryExists };

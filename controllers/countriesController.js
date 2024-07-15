@@ -21,7 +21,7 @@ const getCountryByCode = async (req, res, next) => {
 
 const addCountry = async (req, res, next) => {
     try {
-        const { name, alpha2Code, alpha3Code } = req.body;
+        const { name, alpha2Code, alpha3Code } = req.country;
         const country = new Country({ name, alpha2Code, alpha3Code });
         await country.save();
         res.redirect('/?success=true');
